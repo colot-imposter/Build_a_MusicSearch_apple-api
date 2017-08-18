@@ -13,6 +13,7 @@
    let appleSearchURL = 'https://itunes.apple.com/search?term=' + keyWords;
    let audio = document.querySelector('.audio')
    let results = document.querySelector('.results')
+   let eachSearchItem = ''
 
     fetch(appleSearchURL)
      .then(
@@ -25,13 +26,14 @@
        response.json().then(function(data) {
          for (var i = 0; i < data.results.length; i++) {
            // console.log(data.results[i].trackName);
-           let eachSearchItem += `<div class="resultBox" id=${i}>
+           eachSearchItem +=
+           `<div class="resultBox" id=${i}>
              <img src="${data.results[i].artworkUrl100}">
              <p>${data.results[i].trackName}</p>
              <p>${data.results[i].artistName}<p/>
              </div>
            `
-         }
+         results.innerHTML= eachSearchItem}
          console.log(data);
 })
      })

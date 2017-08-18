@@ -10,7 +10,9 @@ searchBttn.addEventListener('click', function(event) {
   let appleSearchURL = 'https://itunes.apple.com/search?term=' + keyWords;
   let audio = document.querySelector('.audio')
 
+
   let results = document.querySelector('.results')
+  let eachSearchItem = ''
   // let resultsBox = document.querySelector('.results');
 
   fetch(appleSearchURL)
