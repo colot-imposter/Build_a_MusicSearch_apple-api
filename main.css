@@ -1,0 +1,60 @@
+h1{
+font-family: 'Noto Sans', sans-serif;
+color:white;
+text-align: center;
+padding-top: 6%;
+margin: 0;
+font-size: 4em;
+}
+
+header{
+  background:Black;
+}
+body{
+  margin:10px;
+  background: linear-gradient(10deg, red, yellow);
+}
+.musicPlayer{
+  display:hidden;
+  width:100%
+}
+
+.results{
+  display: flex;
+flex-wrap: wrap;
+
+	overflow: scroll;
+	margin: 50px auto;
+	background: white;
+
+}
+
+.resultBox{
+  text-align: center;
+  background: linear-gradient(10deg, red, yellow);
+  /*filter:opacity(20%);*/
+  margin:1%;
+  flex: 0 0 50%;
+}
+
+/*div .results{
+  background-color: red;
+}*/
+img:hover{
+    filter:saturate(100%);
+
+}
+img{
+  margin: 6%;
+  filter:opacity(50%);
+}
+@media screen and (min-width: 400px) {
+
+.resultBox{
+  text-align: center;
+  background: linear-gradient(10deg, red, yellow);
+  /*filter:opacity(20%);*/
+  margin:1%;
+  flex: 0 0 18%;
+}
+}
