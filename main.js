@@ -18,7 +18,7 @@ searchBttn.addEventListener('click', function(event) {
   fetch(appleSearchURL)
     .then(function(response) {
       if (response.status !== 200) {
-        console.log("Wir habten einen Problem...tuten uns Leid aber es ist Kaputz...");
+        console.log("Wir habten einen Problem...tuten uns Leid aber es ist Kaputz..." + response.status);
         return;
         }
       })
@@ -29,7 +29,7 @@ searchBttn.addEventListener('click', function(event) {
           // console.log(data.results[i].trackName);
           eachSearchItem += `
             <div class="resultBox" id=${i}>
-            <img src="${data.results[i].artworkUrl100}">
+            <img src="${data.results[i].artworkUrl100}" alt='Album Artwork'>
             <p>${data.results[i].trackName}</p>
             <p>${data.results[i].artistName}<p/>
             </div>
@@ -58,7 +58,7 @@ searchBttn.addEventListener('click', function(event) {
 
 
 
-
+//you are a real cool dude, dude! 
 
 
 
