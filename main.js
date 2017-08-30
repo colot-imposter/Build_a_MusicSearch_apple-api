@@ -1,61 +1,62 @@
-let searchedItems = document.querySelector('.searchItems')
+ let searchedItems = document.querySelector('.searchItems')
+ let searchBttn = document.querySelector('.searchButton')
 
-let searchBttn = document.querySelector('.searchButton')
-searchBttn.addEventListener('click', function(event) {
-  event.preventDefault();
-
-  let searchBara = document.querySelector('.searchBar')
-  let keyWords = searchBara.value
-
-  let appleSearchURL = 'https://itunes.apple.com/search?term=' + keyWords;
-  let audio = document.querySelector('.audio')
+ searchBttn.addEventListener('click', searchNow)
 
 
-  let results = document.querySelector('.results')
-  let eachSearchItem = ''
-  // let resultsBox = document.querySelector('.results');
+ function searchNow() {
+   event.preventDefault();
+   let searchBara = document.querySelector('.searchBar')
+   let keyWords = searchBara.value
 
-  fetch(appleSearchURL)
-    .then(function(response) {
-      if (response.status !== 200) {
-        console.log("Wir habten einen Problem...tuten uns Leid aber es ist Kaputz...");
-        return;
-        }
-      })
-      response.json().then(function(data) {
 
-        // console.log(data.results);
-        for (var i = 0; i < data.results.length; i++) {
-          // console.log(data.results[i].trackName);
-          eachSearchItem += `
-            <div class="resultBox" id=${i}>
-            <img src="${data.results[i].artworkUrl100}">
-            <p>${data.results[i].trackName}</p>
-            <p>${data.results[i].artistName}<p/>
-            </div>
-          `
-        }
-        sectResults.innerHTML = eachSearchItem;
-        return data;
-      })
-      .then(function(data) {
-        console.log(data);
-        let allResultDivs = document.querySelectorAll('.result');
-        // allResultDivs.forEach(function(e) {
-        //   e.addEventListener('click', function(clickEvent) {
-        //     let audioPlayer = audio
-        //     audioPlayer.src = data.results[clickEvent.path[1].id].previewUrl;
-        //   })
-        // })
+   let appleSearchURL = 'https://itunes.apple.com/search?term=' + keyWords;
+   let audio = document.querySelector('.audio')
+   let results = document.querySelector('.results')
+   let eachSearchItem = ''
 
-      })
-      .catch(function(err) {
-          console.log('Fetch Error :-S', err);
-        });
+   fetch(appleSearchURL)
+     .then(
+       function(response) {
+         if (response.status !== 200) {
+           console.log("Wir habten einen Problem...tuten uns Leid aber es ist Kaputz...", response.status);
+           return
+         }
+
+         response.json().then(function(data) {
+             for (var i = 0; i < data.results.length; i++) {
+               // console.log(data.results[i].trackName);
+               let div = document.createElement('div');
+               div.classList.add(`result${i}`)
+
+               eachSearchItem +=
+                 `<div class="resultBox" id=${i}>
+             <img src="${data.results[i].artworkUrl100}" title="${data.results[i].previewUrl}">
+             <p>${data.results[i].trackName}</p>
+             <p>${data.results[i].artistName}<p/>
+             </div>
+           `
+
+               results.innerHTML = eachSearchItem
+             }
 
 })
 
 
+           .then(function(data) {
+             results.addEventListener('keypress', function(e) {
+               let audioPlayer = document.querySelector('audio')
+               audioPlayer.src = e.target.title
+
+            // })
+           })
+
+               results.addEventListener('click', function(e) {
+                 let audioPlayer = document.querySelector('audio')
+                 audioPlayer.src = e.target.title
+
+              // })
+             })
 
 
 
@@ -64,26 +65,24 @@ searchBttn.addEventListener('click', function(event) {
 
 
 
-  // ----------------------------------
-  //
-  //let eachSearchItem=`
-  //<audio class="music-player" controls="controls" src="${}"></audio>
-  //   <div class="itemContainer${i}">
-  //     <div class="extrasContainer">
-  //       <ul>
-  //         <li>ALbum:</li>
-  //         <li>Genre</li>
-  //         <li>Time</li>
-  //       </ul>
-  //     </div>
-  //     <h2>Artist: ${data.results[i].artistName}</h2>
-  //     <h3>Song Title: ${data.trackName}</h3>
-  //   </div>
-  //   `
-  //   console.log(i+ eeeeewis)
 
 
 
 
+           })
+       })
+     .catch(function(err) {
+       console.log('Fetch Error :-S', err);
+     })
 
-//_________________________________-------------
+ }
+
+
+
+//-------Graveyard:code------------
+
+//    div.addEventListener('click', e => {
+//      audio.src = results.previewUrl
+//      player.style.display = 'flex';
+//      //playerImage.src = result.artworkUrl100;
+//      //playerInfo.innerHTML = `${result.trackName}<br>${result.collectionName}<br>${result.artistName}`
